@@ -10,7 +10,6 @@ import { useTranslation } from "react-i18next";
 const I18Button: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { i18n } = useTranslation();
-
   const handleClose = () => {
     setAnchorEl(null);
   };
