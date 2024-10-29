@@ -5,11 +5,14 @@ import { ThemeContextProvider } from "./components/ThemeContext.tsx";
 import { Provider } from "react-redux";
 import store from "./redux/store.ts";
 import "dotenv";
+import { BrowserRouter as Router } from "react-router-dom";
 
 createRoot(document.getElementById("root")!).render(
   <ThemeContextProvider>
     <Provider store={store}>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </Provider>
   </ThemeContextProvider>
 );

@@ -4,8 +4,11 @@ import { Task } from "./TypesConstant";
 import { getUrgencyColor } from "../utils/helperFunctions";
 import { IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
-
-export const columns: ColumnDef<Task>[] = [
+import { format } from "date-fns";
+import "../components/Table.css";
+export const columns = (
+  editTask: (taskId: string) => void
+): ColumnDef<Task>[] => [
   {
     accessorKey: "title",
     header: t("titleColumn"),
@@ -17,29 +20,39 @@ export const columns: ColumnDef<Task>[] = [
   {
     accessorKey: "priority",
     header: t("priorityColumn"),
-    cell: ({ getValue }) => (
-      <div
-        style={{
-          width: 16,
-          height: 16,
-          borderRadius: "50%",
-          backgroundColor: getUrgencyColor(getValue() as number),
-          margin: "0 auto", // Center the circle
-        }}
-      />
-    ),
+    cell: ({ getValue }) => {
+      const color = getUrgencyColor(getValue() as number);
+      const isRed = color === "red"; // Check if the color is red
+      return (
+        <div
+          className={isRed ? "blink" : ""}
+          style={{
+            width: 16,
+            height: 16,
+            borderRadius: "50%",
+            backgroundColor: getUrgencyColor(getValue() as number),
+            margin: "0 auto", // Center the circle
+          }}
+        />
+      );
+    },
   },
   {
     accessorKey: "created_at",
     header: t("createdAtColumn"),
+    cell: ({ getValue }) => {
+      return <span>{format(getValue() as Date, "dd-MM-yyyy")}</span>;
+    },
   },
   {
     accessorKey: "actions",
     header: t("actions"),
-    cell: ({ row }) => (
-      <IconButton color="primary" aria-label="edit">
-        <EditIcon />
-      </IconButton>
-    ),
+    cell: ({ row }) => {
+      return (
+        <IconButton color="primary" onClick={() => editTask(row.original.id)}>
+          <EditIcon />
+        </IconButton>
+      );
+    },
   },
 ];

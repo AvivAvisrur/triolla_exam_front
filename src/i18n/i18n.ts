@@ -21,6 +21,7 @@ i18n
           userCreated: "User created successfully",
           userNotCreated: "User not created",
           actions: "Actions",
+          titleSearch: "Search Title",
         },
       },
       he: {
@@ -37,10 +38,11 @@ i18n
           userCreated: "משתמש נוצר בהצלחה",
           userNotCreated: "משתמש לא נוצר עקב תקלה",
           actions: "פעולות נוספות",
+          titleSearch: "חפש כותרת",
         },
       },
     },
-    lng: "he", // Set default language to English or "he" for Hebrew
+    lng: "en", // Set default language to English or "he" for Hebrew
     fallbackLng: "en",
     interpolation: {
       escapeValue: false,
