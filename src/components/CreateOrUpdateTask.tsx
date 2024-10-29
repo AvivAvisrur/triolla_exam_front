@@ -1,46 +1,46 @@
-import {
-  Button,
-  Grid,
-  Paper,
-  Snackbar,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import { t } from "i18next";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createTask, setCreatedStatus } from "../redux/slices/taskSlice";
-import { Task } from "../constants/TypesConstant";
+import {
+  createOrUpdateTask,
+  getTaskById,
+  setFormFields,
+  setTaskToEdit,
+} from "../redux/slices/taskSlice";
 import { AppDispatch, RootState } from "../redux/store";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 // interface ThemeToggleProps {}
 
-const CreateTask: React.FC = () => {
-  const [formFields, setFormFields] = useState<{
-    title: string;
-    description: string;
-  }>(
-    {} as {
-      title: string;
-      description: string;
-    }
-  );
+const CreateOrUpdateTask: React.FC = () => {
+  const taskToUpdate = useSelector((state: RootState) => state.task.taskToEdit);
+
+  //If user found , initialize the state with the redux , if not get empty object.
 
   const isCreated = useSelector((state: RootState) => state.task.isCreated);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-
+  const { id } = useParams();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(createTask(formFields));
+
+    dispatch(createOrUpdateTask(taskToUpdate));
   };
+  useEffect(() => {
+    if (id) {
+      dispatch(getTaskById({ id }));
+    } else {
+      dispatch(setTaskToEdit({}));
+    }
+  }, [id]);
 
   useEffect(() => {
     if (isCreated) {
       navigate("/");
     }
   }, [isCreated]);
+
   return (
     <Grid container spacing={2} justifyContent="center" sx={{ mt: 4 }}>
       <Grid item xs={12} md={8} lg={6}>
@@ -60,20 +60,28 @@ const CreateTask: React.FC = () => {
               label={t("titleColumn")}
               name={"title"}
               onChange={(e) => {
-                setFormFields((prev) => {
-                  return { ...prev, [e.target.name]: e.target.value };
-                });
+                dispatch(
+                  setFormFields({
+                    fieldName: "title",
+                    value: e.target.value,
+                  })
+                );
               }}
+              value={taskToUpdate?.title}
               fullWidth
               sx={{ mb: 2 }}
             />
             <TextField
               label={t("descriptionColumn")}
               name={"description"}
+              value={taskToUpdate?.description}
               onChange={(e) => {
-                setFormFields((prev) => {
-                  return { ...prev, [e.target.name]: e.target.value };
-                });
+                dispatch(
+                  setFormFields({
+                    fieldName: "description",
+                    value: e.target.value,
+                  })
+                );
               }}
               fullWidth
               sx={{ mb: 2 }}
@@ -89,4 +97,4 @@ const CreateTask: React.FC = () => {
   );
 };
 
-export default CreateTask;
+export default CreateOrUpdateTask;

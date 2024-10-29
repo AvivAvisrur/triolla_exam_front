@@ -21,6 +21,7 @@ const I18Button: React.FC = () => {
   return (
     <>
       <IconButton
+        dir="ltr"
         onClick={(e: React.MouseEvent<HTMLElement>) => {
           setAnchorEl(e.currentTarget);
         }}

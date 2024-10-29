@@ -1,0 +1,9 @@
+@keyframes blinkRed {
+    0% { background-color: red; }
+    50% { background-color: transparent; }
+    100% { background-color: red; }
+  }
+  
+  .blink {
+    animation: blinkRed 1s infinite;
+  }

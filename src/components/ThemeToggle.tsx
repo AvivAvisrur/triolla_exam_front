@@ -13,12 +13,12 @@ const ThemeToggle: React.FC = () => {
       value={themeMode}
       exclusive
       onChange={toggleTheme}
-      aria-label="Theme mode toggle"
+      dir="ltr"
     >
-      <ToggleButton value="light" aria-label="Light mode">
+      <ToggleButton value="light">
         <Brightness7Icon />
       </ToggleButton>
-      <ToggleButton value="dark" aria-label="Dark mode">
+      <ToggleButton value="dark">
         <Brightness4Icon />
       </ToggleButton>
     </ToggleButtonGroup>
