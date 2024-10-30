@@ -8,10 +8,7 @@
 - [Requirements](#requirements)
 - [Getting Started](#getting-started)
   - [Frontend Setup (React + Vite + TypeScript)](#frontend-setup-react--vite--typescript)
-- [Environment Variables](#environment-variables)
-- [Database Setup](#database-setup)
-- [Running the Application](#running-the-application)
-- [Troubleshooting](#troubleshooting)
+- [Environment Variables](#configure-env-file)
 
 ---
 
