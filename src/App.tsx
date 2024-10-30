@@ -16,6 +16,7 @@ import { getAllTasks, setCreatedStatus } from "./redux/slices/taskSlice";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import ErrorHandler from "./components/ErrorHandler";
 import i18next from "i18next";
+import TaskTableFilters from "./components/TaskTableFilters";
 
 function App() {
   const isTableLoading = useSelector(
@@ -29,12 +30,12 @@ function App() {
   const {
     page,
     limit,
-    filters: { titleFilter },
+    filters: { titleFilter, priorityFilter },
   } = useSelector((state: RootState) => state.task);
 
   useEffect(() => {
     dispatch(getAllTasks({}));
-  }, [page, limit, titleFilter]);
+  }, [page, limit, titleFilter, priorityFilter]);
 
   useEffect(() => {
     // Change direction based on the language
@@ -136,6 +137,7 @@ function App() {
             </Button>
           )}
         </Grid>
+        <TaskTableFilters />
 
         {/* Routes */}
         <Routes>

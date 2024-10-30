@@ -24,7 +24,6 @@ import { useDispatch, useSelector } from "react-redux";
 // import { setTaskToEdit } from "../redux/slices/taskSlice";
 import { useNavigate } from "react-router";
 import { setPage } from "../redux/slices/taskSlice";
-import TaskTableFilters from "./TaskTableFilters";
 
 // interface TaskTableProps {
 // }
@@ -69,8 +68,6 @@ const TaskTable: React.FC = () => {
   return (
     <>
       <Grid container>
-        <TaskTableFilters />
-
         <Grid item xs={12}>
           <TableContainer
             sx={{

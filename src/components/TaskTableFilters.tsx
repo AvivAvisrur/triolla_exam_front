@@ -1,4 +1,11 @@
-import { Grid, TextField } from "@mui/material";
+import {
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import React, { useCallback } from "react";
 import { AppDispatch } from "../redux/store";
 import { useDispatch } from "react-redux";
@@ -34,14 +41,28 @@ const TaskTableFilters: React.FC = () => {
         />
       </Grid>
       <Grid item xs={12} md={4}>
-        <TextField
-          fullWidth
-          size="small"
-          label={t("titleSearch")}
-          //   onChange={(e) => {
-          //     dispatch(setFilters({ name: "title", value: e.target.value }));
-          //   }}
-        />
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">
+            {t("priorityColumn")}
+          </InputLabel>
+          <Select
+            size="small"
+            name={"priorityFilter"}
+            label={t("priorityColumn")}
+            onChange={(e) =>
+              dispatch(
+                setFilters({
+                  name: e.target.name,
+                  value: e.target.value as string,
+                })
+              )
+            }
+          >
+            <MenuItem value={"LOW"}>{t("lowPriority")}</MenuItem>
+            <MenuItem value={"MID"}>{t("midPriority")}</MenuItem>
+            <MenuItem value={"HIGH"}>{t("highPriority")}</MenuItem>
+          </Select>
+        </FormControl>
       </Grid>
     </Grid>
   );
