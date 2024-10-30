@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FiltersType } from "../../constants/TypesConstant";
 
 import axiosApi from "../../constants/axiosApi";
 import { AxiosError, isAxiosError } from "axios";
